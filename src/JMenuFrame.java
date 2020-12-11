@@ -7,6 +7,7 @@ public class JMenuFrame extends JFrame implements ActionListener
 {
     JMenu fileMenu;
     JMenu editMenu;
+    JMenu timeMenu;
     JLabel response;
 
     public JMenuFrame() {
@@ -17,15 +18,19 @@ public class JMenuFrame extends JFrame implements ActionListener
 
         // invoke some user-defined methods to create two menus (and their menu items)
         // this is done just to make the constructor shorter but is good programming practice
+
         createFileMenu();
         createEditMenu();
+        createTimeMenu();
 
         //and add them to the menubar
+
         JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
-        menuBar.setBackground(Color.yellow);
+        menuBar.setBackground(Color.GREEN);
         menuBar.add(fileMenu);
         menuBar.add(editMenu);
+        menuBar.add(timeMenu);
 
         response = new JLabel("Menu Tester" );
         add(response);
@@ -37,10 +42,12 @@ public class JMenuFrame extends JFrame implements ActionListener
     }
 
     public static void main(String[] args) {
+
         JMenuFrame frame = new JMenuFrame();
     }
 
     // when a menu-item is clicked, response starts here
+
     public void actionPerformed(ActionEvent event) {
         String  menuName;
         menuName = event.getActionCommand();
@@ -52,6 +59,7 @@ public class JMenuFrame extends JFrame implements ActionListener
     }
 
     //Creates File menu and its menu items
+
     private void createFileMenu( ) {
         JMenuItem    item;
 
@@ -99,5 +107,23 @@ public class JMenuFrame extends JFrame implements ActionListener
         item = new JMenuItem("Paste");
         item.addActionListener( this );
         editMenu.add( item );
+    }
+    private void createTimeMenu(){
+        JMenuItem item;
+
+
+        timeMenu = new JMenu("Time");
+
+        item = new JMenuItem("Morning 9 am");
+        item.addActionListener(this);
+        timeMenu.add(item);
+
+        item = new JMenuItem("Good afternoon 12.01 pm");
+        item.addActionListener(this);
+        timeMenu.add(item);
+
+        item = new JMenuItem("Good evening 18 pm");
+        item.addActionListener(this);
+        timeMenu.add(item);
     }
 }
