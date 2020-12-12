@@ -4,10 +4,12 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 
-public class NullLayoutJComboJListDemo extends JFrame implements ActionListener, ListSelectionListener {
+public class NullLayoutJComboJListDemo extends JFrame implements ActionListener, ListSelectionListener, KeyListener {
 
     private JComboBox<Language> comboBox;
     private JList<String> countryList;
@@ -28,7 +30,10 @@ public class NullLayoutJComboJListDemo extends JFrame implements ActionListener,
 
         add(countryList);
 
-        setSize(400,400 );
+        //add(new JScrollPane(countryList));
+
+        setSize(450,400 );
+        getContentPane().setBackground(Color.CYAN);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
@@ -55,13 +60,20 @@ public class NullLayoutJComboJListDemo extends JFrame implements ActionListener,
 
         comboBox.addActionListener(this);
 
+        comboBox.setToolTipText("A combo-box to allow you select languages");
+
+        comboBox.setBackground(Color.WHITE);
+
+        comboBox.addKeyListener(this);
+
         comboBox.setFont(new Font("serif", Font.BOLD, 11));
 
         comboBox.setMaximumRowCount(4);
 
         comboBox.setSelectedIndex(0);
 
-        comboBox.setBounds(50,50,250,20);
+        comboBox.setBounds(180,60,230,20);
+
     }
 
 
@@ -81,9 +93,9 @@ public class NullLayoutJComboJListDemo extends JFrame implements ActionListener,
 
         countryList.addListSelectionListener(this);
 
-        countryList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        countryList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
-        countryList.setBounds(90,150,100,100);
+        countryList.setBounds(40,60,80,120);
     }
 
 
@@ -93,34 +105,66 @@ public class NullLayoutJComboJListDemo extends JFrame implements ActionListener,
 
         Language selectedLanguage = (Language) combo.getSelectedItem();
 
-        if (selectedLanguage.getName().equals("Spanish"))
-            JOptionPane.showMessageDialog(null,"Buenos Dias!",
-                    "Greetings in " + selectedLanguage.getName(),JOptionPane.INFORMATION_MESSAGE);
-        else if (selectedLanguage.getName().equals("French"))
-            JOptionPane.showMessageDialog(null,"Bonjour!",
-                    "Greetings in " + selectedLanguage.getName(),JOptionPane.INFORMATION_MESSAGE);
-        else if(selectedLanguage.getName().equals("Japanese")) {
-            JOptionPane.showMessageDialog(null,"Removed Japanese from the combo-box",
-                    "Language Removed",JOptionPane.INFORMATION_MESSAGE);
-            combo.removeItem(selectedLanguage);
-        }
+        if(comboBox.getItemCount()>0)
+            if (selectedLanguage.getName().equals("Spanish"))
+                JOptionPane.showMessageDialog(null,"Buenos Dias!",
+                        "Greetings in " + selectedLanguage.getName(),JOptionPane.INFORMATION_MESSAGE);
+            else if (selectedLanguage.getName().equals("French"))
+                JOptionPane.showMessageDialog(null,"Bonjour!",
+                        "Greetings in " + selectedLanguage.getName(),JOptionPane.INFORMATION_MESSAGE);
+            else if(selectedLanguage.getName().equals("Japanese")) {
+                JOptionPane.showMessageDialog(null,"Removed Japanese from the combo-box",
+                        "Language Removed",JOptionPane.INFORMATION_MESSAGE);
+                combo.removeItem(selectedLanguage);
+            }
     }
 
     public void valueChanged(ListSelectionEvent e) {
-        int index=0;
-        if (!countryList.isSelectionEmpty()) {
-            ArrayList<String> selectedValuesList =  (ArrayList<String>)countryList.getSelectedValuesList();
-            JOptionPane.showMessageDialog(null,"Country selected was " +
-                    selectedValuesList.get(0),"Country Picked",JOptionPane.INFORMATION_MESSAGE);
 
-            index = countryList.getSelectedIndex();
+        String allCountriesSelected="";
+        ArrayList<String> selectedValuesList;
 
-            if(index!=-1) {
-                listModel.remove(index);
-                JOptionPane.showMessageDialog(null, selectedValuesList.get(0) + " was removed from JList"
-                        , "Country Removed", JOptionPane.INFORMATION_MESSAGE);
+        if(!countryList.isSelectionEmpty()) {
+            selectedValuesList = (ArrayList<String>) countryList.getSelectedValuesList();
+
+            for (String s : selectedValuesList) {
+                allCountriesSelected += s + "\n";
             }
 
+            JOptionPane.showMessageDialog(null, "Countries selected were:\n\n" +
+                    allCountriesSelected, "Countries Picked", JOptionPane.INFORMATION_MESSAGE);
         }
+    }
+
+
+    public void keyTyped(KeyEvent e) {
+
+        int comboBoxSize = comboBox.getItemCount();
+        JOptionPane.showMessageDialog(null,"There are " + comboBoxSize + " items in this combo-box",
+                "Item Count",JOptionPane.INFORMATION_MESSAGE);
+
+        if(e.getKeyChar()>'0' && e.getKeyChar()<= '0' + comboBoxSize){
+            int charAsNum = Character.getNumericValue(e.getKeyChar());
+            JOptionPane.showMessageDialog(null,"Item selected was: " + comboBox.getItemAt(charAsNum-1),
+                    "Language Picked",JOptionPane.INFORMATION_MESSAGE);
+        }
+
+    }
+
+
+    public void keyPressed(KeyEvent e) {
+
+        if(e.getKeyCode()==KeyEvent.VK_C)
+            comboBox.removeAllItems();
+
+
+    }
+
+
+    public void keyReleased(KeyEvent e) {
+
+        comboBox.setBackground(Color.GREEN);
+        getContentPane().setBackground(Color.yellow);
+
     }
 }

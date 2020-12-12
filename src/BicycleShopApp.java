@@ -23,7 +23,7 @@ public class BicycleShopApp extends JFrame implements ActionListener {
         menuBar.add(fileMenu);
         menuBar.add(bikeMenu);
 
-        ImageIcon icon = new ImageIcon("D:\\OOP_Java\\Sem3Lab14\\Lab14\\bike.png");
+        ImageIcon icon = new ImageIcon("D:\\OOP_Java\\Sem3Lab14\\Lab14\\src\\bike.png");
         setIconImage(icon.getImage());
 
         setSize(400,400 );
