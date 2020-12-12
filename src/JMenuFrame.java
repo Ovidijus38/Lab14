@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 public class JMenuFrame extends JFrame implements ActionListener
@@ -44,18 +46,25 @@ public class JMenuFrame extends JFrame implements ActionListener
     public static void main(String[] args) {
 
         JMenuFrame frame = new JMenuFrame();
+
     }
+
+
 
     // when a menu-item is clicked, response starts here
 
     public void actionPerformed(ActionEvent event) {
+
         String  menuName;
         menuName = event.getActionCommand();
 
         if (menuName.equals("Quit"))
             System.exit(0);
+
         else
-            response.setText("Menu Item '" + menuName + "' is selected.");
+           response.setText("Menu Item '" + menuName + "' is selected.");
+
+
     }
 
     //Creates File menu and its menu items
@@ -111,10 +120,13 @@ public class JMenuFrame extends JFrame implements ActionListener
     private void createTimeMenu(){
         JMenuItem item;
 
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+
 
         timeMenu = new JMenu("Time");
 
-        item = new JMenuItem("Morning 9 am");
+        item = new JMenuItem("Today's date : " + dtf.format(now));
         item.addActionListener(this);
         timeMenu.add(item);
 
@@ -126,4 +138,5 @@ public class JMenuFrame extends JFrame implements ActionListener
         item.addActionListener(this);
         timeMenu.add(item);
     }
+
 }
