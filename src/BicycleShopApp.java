@@ -39,7 +39,7 @@ public class BicycleShopApp extends JFrame implements ActionListener {
 
         fileMenu = new JMenu("File");
 
-        String itemNames[] = {"New","Open","Save","Quit"};
+        String[] itemNames = {"New","Open","Save","Quit"};
 
         for(int i=0;i<itemNames.length;i++){
             item = new JMenuItem(itemNames[i]);
@@ -57,11 +57,11 @@ public class BicycleShopApp extends JFrame implements ActionListener {
 
         bikeMenu = new JMenu("Bicycle");
 
-        String itemNames[] = {"Add","Amend","Remove","View"};
+        String[] itemNames = {"Add","Amend","Remove","View"};
 
-        for(int i=0;i<itemNames.length;i++) {
+        for (String itemName : itemNames) {
 
-            item = new JMenuItem(itemNames[i]);
+            item = new JMenuItem(itemName);
             item.addActionListener(this);
             bikeMenu.add(item);
         }
