@@ -30,7 +30,7 @@ public class NullLayoutJComboJListDemo extends JFrame implements ActionListener,
 
         add(countryList);
 
-        //add(new JScrollPane(countryList));
+        add(new JScrollPane(countryList));
 
         setSize(450,400 );
         getContentPane().setBackground(Color.CYAN);
