@@ -30,9 +30,13 @@ public class GraphicsDemo extends JFrame implements ActionListener {
 
         g.setColor(Color.CYAN);
         g.drawLine(150,200,300,300);
+
+        g.setColor(Color.BLACK);
+        g.drawLine(160,220,320,320);
     }
 
     public void actionPerformed(ActionEvent e) {
         drawALine();
+
     }
 }

@@ -24,7 +24,7 @@ public class GraphicsPanel extends JPanel {
 
         g.drawPolygon(xpoints, ypoints, npoints);
 
-        g.drawImage((new ImageIcon("OOP_Java/Sem3Lab14/Lab14/src/aib.png")).getImage(),50,200,null);
+        g.drawImage((new ImageIcon("D:\\OOP_Java\\Sem3Lab14\\Lab14\\src\\aib.png")).getImage(),50,200,null);
 
     }
 }
